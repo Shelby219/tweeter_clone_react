@@ -1,10 +1,14 @@
 import { Avatar, Button } from "@material-ui/core";
 import React, { useState } from "react";
+import {useGlobalState} from '../config/globalState'
 
 
-function TweetBox({addTweetPost}) {
+function TweetBox({}) {
   const [tweetMessage, setTweetMessage] = useState("");
   const [tweetImage, setTweetImage] = useState("");
+
+  const {store, dispatch} = useGlobalState()
+  const {posts} = store
 
   const sendTweet = (e) => {
     e.preventDefault();
@@ -17,11 +21,21 @@ function TweetBox({addTweetPost}) {
         image: tweetImage,
     }
     addTweetPost(newPost)
+    
     //console.log(newPost)
     setTweetMessage("");
     setTweetImage("");
   };
 
+
+  // Add a Tweet in Tweets
+   function addTweetPost(p) {
+    //setPosts([...posts, p])
+      dispatch({
+        type: "setPosts",
+        data: [...posts, p]
+    })
+  }
   
   return (
     <div className="tweetBox">

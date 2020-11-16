@@ -9,16 +9,32 @@ import {
   Delete
 } from "@material-ui/icons";
 import React from "react";
-import { Link} from 'react-dom/server';
-//import SweetAlert from 'sweetalert-react';
-//import EditTwoot from "./EditTwoot";
+import {Link} from 'react-router-dom';
+import {useGlobalState} from '../config/globalState'
 
 
-function Post({history, displayName, username, verified, text, image, avatar, id, deleteTweetPost, updateTweetPost }) {
-  //const [show, setShow] = useState(false);
+
+function Post({history, displayName, username, verified, text, image, avatar, id }) {
+
+
+  const {store, dispatch} = useGlobalState()
+  const {posts} = store
+
+
     const imgStyles = {
         width: '20%'
     }
+
+    function deleteTweetPost(id) {
+      const updatedPosts = posts.filter((p) => p._id !== parseInt(id))
+      //setPosts(updatedPosts)
+      dispatch({
+        type: "setPosts",
+        data: updatedPosts
+      })
+      console.log(updatedPosts)
+    }
+
     // Handle the delete button
     function handleDelete(event) {
         event.preventDefault()
@@ -33,19 +49,6 @@ function Post({history, displayName, username, verified, text, image, avatar, id
         //updateTweetPost(id)
        //history.push(`/posts/edit/${id}`)
         //console.log(id)
-          // return(
-          //   <div>
-          //   <button onClick={() => setShow(true)}>Alert</button>
-          //   <SweetAlert
-          //     show={show}
-          //     title="Demo"
-          //     html
-          //     text={renderToStaticMarkup(<EditTwoot />)}
-          //     onConfirm={() => setShow(false)}
-          //   />
-          // </div>
-          // )
-  
     }
 
   return (
@@ -69,9 +72,8 @@ function Post({history, displayName, username, verified, text, image, avatar, id
           </div>
         </div>
         <img src={image} alt="" style={imgStyles}/>
-        <div>
-      
-        <button onClick={handleEdit} ><Edit/></button> 
+        <div>  
+        <button><Link to={`/posts/edit/${id}`}> <Edit/></Link></button>
         <button onClick={handleDelete} ><Delete/></button> 
         </div>
         <div className="post__footer">

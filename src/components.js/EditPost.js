@@ -1,7 +1,18 @@
 import { Avatar, Button } from "@material-ui/core";
 import React,{useState, useEffect} from 'react'
+import {useGlobalState} from '../config/globalState'
+import {withRouter} from 'react-router-dom'
 
-function Post({post, updateTweetPost}) {
+function Post({history, post}) {
+
+  const {store, dispatch} = useGlobalState()
+  const {posts} = store
+
+
+  function updateTweetPost(updatedPost) {
+    const otherPosts = posts.filter((p) => p._id !== updatedPost._id)
+    //setPosts([...otherPosts, updatedPost])
+  }
 
     function handleChange(event) {
         const name = event.target.name
@@ -24,6 +35,7 @@ function Post({post, updateTweetPost}) {
           image: post.image,
       }
       updateTweetPost(updatedPost)
+      history.push(`/`)
       //console.log(updatedPost)
     };
 
@@ -71,7 +83,7 @@ function Post({post, updateTweetPost}) {
           className="tweetBox__imageInput"
         />
         <Button onClick={sendTweet} type="submit" className="tweetBox__button">
-          Tweet
+          Update Tweet
         </Button>
       </form>
     </div>
