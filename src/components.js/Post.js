@@ -13,13 +13,10 @@ import {Link} from 'react-router-dom';
 import {useGlobalState} from '../config/globalState'
 
 
-
 function Post({history, displayName, username, verified, text, image, avatar, id }) {
-
 
   const {store, dispatch} = useGlobalState()
   const {posts} = store
-
 
     const imgStyles = {
         width: '20%'

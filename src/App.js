@@ -37,11 +37,9 @@ const App = () => {
   return (
     <div className="app" >
     <StateContext.Provider value={{store,dispatch}}>
-  
        <BrowserRouter>
        <Sidebar />
        <Switch>
-   
         <Route exact path="/" component={Feed} />
         <Route exact path="/posts/edit/:id" render={(props) => <EditPost {...props} post={getPostFromId(props.match.params.id)}/> }/>
         <Route component={NotFound} />

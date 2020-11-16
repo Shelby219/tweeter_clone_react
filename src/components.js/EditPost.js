@@ -9,6 +9,8 @@ function Post({history, post}) {
   const {posts} = store
 
 
+
+   
   function updateTweetPost(updatedPost) {
     const otherPosts = posts.filter((p) => p._id !== updatedPost._id)
     //setPosts([...otherPosts, updatedPost])
@@ -31,7 +33,7 @@ function Post({history, post}) {
           displayName: post.displayName,
           avatar: post.avatar,
           verified: post.verified,
-          text: formState.content,
+          text: formState.text,
           image: post.image,
       }
       updateTweetPost(updatedPost)
@@ -59,7 +61,7 @@ function Post({history, post}) {
             displayName: post.displayName,
             avatar: post.avatar,
             verified: post.verified,
-            text: formState.content,
+            text: formState.text,
             image: post.image
         })
     },[post])
@@ -70,7 +72,7 @@ function Post({history, post}) {
         <div className="tweetBox__input">
           <Avatar src="https://scontent-bom1-1.xx.fbcdn.net/v/t1.0-1/c0.33.200.200a/p200x200/51099653_766820610355014_8315780769297465344_o.jpg?_nc_cat=101&_nc_sid=7206a8&_nc_ohc=c1qBHkwAgVsAX8KynKU&_nc_ht=scontent-bom1-1.xx&oh=340b05bea693dd1671296e0c2d004bb3&oe=5F84CA62" />
           <input
-            value={formState.content} 
+            value={formState.text} 
             onChange={handleChange}
             type="text"
           />
