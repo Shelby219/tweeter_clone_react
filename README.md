@@ -1,3 +1,2 @@
-### Twitter Clone
+### Twitter Clone Using React
 
-Practice React
